@@ -2,8 +2,10 @@ package org.example.board.post.db;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.board.reply.db.ReplyEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +27,9 @@ public class PostEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
     private LocalDateTime postedAt;
+
+    @Transient
+    private List<ReplyEntity> replylist = List.of();
 
 
 }
