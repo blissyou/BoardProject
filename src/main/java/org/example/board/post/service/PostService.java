@@ -2,6 +2,7 @@ package org.example.board.post.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.board.board.db.BoardRepository;
 import org.example.board.post.db.PostEntity;
 import org.example.board.post.db.PostRepository;
 import org.example.board.post.model.PostRequest;
@@ -19,13 +20,17 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final BoardRepository boardRepository;
     private final ReplyService replyService;
+
 
     public PostEntity create(
         PostRequest postRequest
     ){
+        var boardEntity = boardRepository.findById(postRequest.getBoardId()).get();
+
         var entity = PostEntity.builder()
-                .boardId(1L)
+                .board(boardEntity)
                 .userName(postRequest.getUserName())
                 .password(postRequest.getPassword())
                 .email(postRequest.getEmail())

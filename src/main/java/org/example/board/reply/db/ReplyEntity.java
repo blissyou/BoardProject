@@ -1,7 +1,9 @@
 package org.example.board.reply.db;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.board.post.db.PostEntity;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +18,9 @@ public class ReplyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long postId;
+    @ManyToOne
+    @JsonIgnore
+    private PostEntity post;
     private String userName;
     private String password;
     private String status;

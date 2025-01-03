@@ -3,12 +3,10 @@ package org.example.board.board.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.board.board.db.BoardEntity;
+import org.example.board.board.model.BoardDto;
 import org.example.board.board.model.BoardRequest;
 import org.example.board.board.service.BoardService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/board")
@@ -18,10 +16,17 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @PostMapping("")
-    public BoardEntity create(
+    public BoardDto create(
             @Valid
             @RequestBody BoardRequest boardrequest
     ){
         return boardService.create(boardrequest);
+    }
+
+    @GetMapping("/id/{id}")
+    public BoardDto view(
+            @PathVariable Long id
+    ){
+        return boardService.view(id);
     }
 }

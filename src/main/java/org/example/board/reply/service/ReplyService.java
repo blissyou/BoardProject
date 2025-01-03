@@ -1,6 +1,8 @@
 package org.example.board.reply.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.board.post.db.PostEntity;
+import org.example.board.post.db.PostRepository;
 import org.example.board.reply.db.ReplyEntity;
 import org.example.board.reply.db.ReplyRepository;
 import org.example.board.reply.model.ReplyRequest;
@@ -13,10 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReplyService {
     private final ReplyRepository replyRepository;
+    private final PostRepository postRepository;
 
     public ReplyEntity create(ReplyRequest replyRequest){
+        var postEntity = postRepository.findById(replyRequest.getPostId()).get();
         var entity =ReplyEntity.builder()
-                .postId(replyRequest.getPostId())
+                .post(postEntity)
                 .userName(replyRequest.getUserName())
                 .title(replyRequest.getTitle())
                 .password(replyRequest.getPassword())

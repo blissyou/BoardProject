@@ -1,7 +1,11 @@
-package org.example.board.post.db;
+package org.example.board.post.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import org.example.board.board.db.BoardEntity;
 import org.example.board.reply.db.ReplyEntity;
@@ -11,20 +15,16 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @Builder
-@Entity(name = "post")
-public class PostEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class PostDto {
+
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    @ToString.Exclude
-    private BoardEntity board;
+    private Long boardId;
 
     private String userName;
 
@@ -36,13 +36,8 @@ public class PostEntity {
 
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private LocalDateTime postedAt;
-
-    @OneToMany(mappedBy = "post")
-    private List<ReplyEntity> replylist = List.of();
-
 
 }
