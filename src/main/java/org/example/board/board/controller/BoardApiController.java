@@ -23,6 +23,7 @@ public class BoardApiController {
         return boardService.create(boardrequest);
     }
 
+
     @GetMapping("/id/{id}")
     public BoardDto view(
             @PathVariable Long id

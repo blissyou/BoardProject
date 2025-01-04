@@ -29,4 +29,9 @@ public class BoardService {
         var Entity = boardRepository.findById(id).get();
         return boardConverter.ToDto(Entity);
     }
+
+    public BoardDto findByAll(){
+        var Entity = boardRepository.findAll();
+        return boardConverter.ToDto(Entity.get(0));
+    }
 }
