@@ -18,7 +18,9 @@ public class ReplyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @ToString.Exclude
     @JsonIgnore
     private PostEntity post;
     private String userName;

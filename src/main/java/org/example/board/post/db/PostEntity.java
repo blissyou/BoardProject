@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.example.board.board.db.BoardEntity;
 import org.example.board.reply.db.ReplyEntity;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,6 +43,8 @@ public class PostEntity {
     private LocalDateTime postedAt;
 
     @OneToMany(mappedBy = "post")
+    @Builder.Default
+    @Where(clause = "status = 'REGISTERED'")
     private List<ReplyEntity> replylist = List.of();
 
 

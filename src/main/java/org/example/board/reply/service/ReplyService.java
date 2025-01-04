@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +19,13 @@ public class ReplyService {
     private final PostRepository postRepository;
 
     public ReplyEntity create(ReplyRequest replyRequest){
-        var postEntity = postRepository.findById(replyRequest.getPostId()).get();
+        var optionalpostEntity = postRepository.findById(replyRequest.getPostId());
+
+        if (optionalpostEntity.isEmpty()){
+            throw new RuntimeException("게시물이 존제하지 않습니다"+replyRequest.getPostId());
+        }
         var entity =ReplyEntity.builder()
-                .post(postEntity)
+                .post(optionalpostEntity.get())
                 .userName(replyRequest.getUserName())
                 .title(replyRequest.getTitle())
                 .password(replyRequest.getPassword())
