@@ -8,6 +8,9 @@ import org.example.board.board.model.BoardRequest;
 import org.example.board.board.service.BoardService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/board")
 @RequiredArgsConstructor
@@ -22,6 +25,11 @@ public class BoardApiController {
     ){
         return boardService.create(boardrequest);
     }
+    @GetMapping("/all")
+    public List<BoardEntity> findByAll(){
+        return boardService.findByAll();
+    }
+
 
 
     @GetMapping("/id/{id}")

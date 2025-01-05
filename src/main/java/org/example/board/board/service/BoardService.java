@@ -8,6 +8,8 @@ import org.example.board.board.model.BoardDto;
 import org.example.board.board.model.BoardRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -30,8 +32,7 @@ public class BoardService {
         return boardConverter.ToDto(Entity);
     }
 
-    public BoardDto findByAll(){
-        var Entity = boardRepository.findAll();
-        return boardConverter.ToDto(Entity.get(0));
+    public List<BoardEntity> findByAll(){
+        return boardRepository.findAll();
     }
 }
