@@ -5,6 +5,7 @@ import org.example.board.post.db.PostEntity;
 import org.example.board.post.db.PostRepository;
 import org.example.board.reply.db.ReplyEntity;
 import org.example.board.reply.db.ReplyRepository;
+import org.example.board.reply.model.ReplyDto;
 import org.example.board.reply.model.ReplyRequest;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,9 @@ import java.util.Optional;
 public class ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
+    private final ReplyConverter replyConverter;
 
-    public ReplyEntity create(ReplyRequest replyRequest){
+    public ReplyDto create(ReplyRequest replyRequest){
         var optionalpostEntity = postRepository.findById(replyRequest.getPostId());
 
         if (optionalpostEntity.isEmpty()){
@@ -35,10 +37,12 @@ public class ReplyService {
                 .repliedAt(LocalDateTime.now())
                 .build();
 
-        return replyRepository.save(entity);
+        return replyConverter.ToDto(entity);
     }
 
-    public List<ReplyEntity> findAllByPostId(Long postId){
-        return replyRepository.findAllByPostIdAndStatusOrderByIdDesc(postId,"REGISTERED");
+
+    public List<ReplyDto> findAllByPostId(Long postId){
+        var entity = replyRepository.findAllByPostIdAndStatusOrderByIdDesc(postId,"REGISTERED");
+        return entity.stream().map(replyConverter::ToDto).toList();
     }
 }

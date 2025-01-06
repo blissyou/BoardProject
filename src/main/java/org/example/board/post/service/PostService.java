@@ -47,7 +47,7 @@ public class PostService {
      * 1. 게시글이 있는가?
      * 2. 비밀번호가 맞는가
      */
-    public PostEntity view(PostViewRequest postViewRequest) {
+    public PostDto view(PostViewRequest postViewRequest) {
 
         var Entity=  postRepository.findFirstByIdAndStatusOrderByIdDesc(postViewRequest.getPostId(),"REGISTERED")
                 .map(it -> {
@@ -64,7 +64,7 @@ public class PostService {
                             return new RuntimeException("해당 게시글이 존재하지 않습니다: " + postViewRequest.getPostId());
                         }
                 );
-        return PostConverter.ToDto(Entity);
+        return postConverter.ToDto(Entity);
 
     }
 
