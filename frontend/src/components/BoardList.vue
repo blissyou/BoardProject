@@ -4,29 +4,46 @@
 
     <ul v-if="boards.length > 0">
       <li
-          v-for="board in boards"
+          v-for="(board, index) in boards"
           :key="board.id"
           class="border-b py-4"
       >
-        <h3 class="text-lg font-bold">{{ board.boardName }}</h3>
-        <p class="text-gray-500">상태: {{ board.status }}</p>
+        <!-- 클릭 이벤트 추가 -->
+        <h3
+            class="text-lg font-bold cursor-pointer text-blue-500"
+            @click="toggleBoard(index)"
+        >
+          {{ board.board_name }}
+        </h3>
 
-        <ul v-if="board.postlist.length > 0" class="mt-2 pl-4 border-l">
+        <!-- 게시물 목록을 조건부 렌더링 -->
+        <ul v-show="board.isOpen" class="mt-2 pl-4 border-l">
           <li
               v-for="post in board.postlist"
               :key="post.id"
               class="py-2"
           >
             <strong>{{ post.title }}</strong> - {{ post.userName }}
-            <p class="text-sm text-gray-500">{{ post.content }}</p>
           </li>
         </ul>
-        <p v-else class="text-sm text-gray-400">게시물이 없습니다.</p>
+        <ul v-if="board.isOpen" class="mt-2 pl-4 border-l">
+          <li
+              v-for="post in board.postlist"
+              :key="post.id"
+              class="py-2"
+          >
+            <strong>{{ post.title }}</strong> - {{ post.userName }}
+          </li>
+          <p v-if="board.postlist.length === 0" class="text-sm text-gray-400">
+            게시물이 없습니다.
+          </p>
+        </ul>
       </li>
     </ul>
     <p v-else class="text-gray-500">게시판이 없습니다.</p>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 
@@ -48,13 +65,20 @@ export default {
         console.log("응답 데이터:", response.data);
 
         // API 응답 데이터를 boards에 저장
-        this.boards = response.data;
+        this.boards = response.data.map((board) => ({
+          ...board,
+          isOpen: false, // 게시판의 열림 상태를 추가
+        }));
       } catch (error) {
         console.error("API 호출 에러:", error);
         this.error = "데이터를 불러오는 데 실패했습니다.";
       } finally {
         this.loading = false; // 로딩 상태 종료
       }
+    },
+    toggleBoard(index) {
+      // 클릭된 게시판의 열림 상태를 토글
+      this.boards[index].isOpen = !this.boards[index].isOpen;
     },
   },
 };

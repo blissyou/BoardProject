@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostConverter {
+
     public PostDto ToDto(PostEntity postEntity){
         return PostDto.builder()
                 .id(postEntity.getId())

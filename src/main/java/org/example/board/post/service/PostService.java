@@ -2,10 +2,12 @@ package org.example.board.post.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.board.board.db.BoardRepository;
+import org.example.board.board.service.BoardConverter;
 import org.example.board.post.common.Api;
 import org.example.board.post.common.Pagination;
 import org.example.board.post.db.PostEntity;
 import org.example.board.post.db.PostRepository;
+import org.example.board.post.model.PostDto;
 import org.example.board.post.model.PostRequest;
 import org.example.board.post.model.PostViewRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +22,9 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final BoardRepository boardRepository;
+    private final PostConverter postConverter;
 
-    public PostEntity create(
+    public PostDto create(
         PostRequest postRequest
     ){
         var boardEntity = boardRepository.findById(postRequest.getBoardId()).get();
@@ -36,7 +39,8 @@ public class PostService {
                 .content(postRequest.getContent())
                 .postedAt(LocalDateTime.now())
                 .build();
-        return postRepository.save(entity);
+        var saveEntity = postRepository.save(entity);
+        return postConverter.ToDto(saveEntity);
     }
 
     /**
@@ -45,7 +49,7 @@ public class PostService {
      */
     public PostEntity view(PostViewRequest postViewRequest) {
 
-        return postRepository.findFirstByIdAndStatusOrderByIdDesc(postViewRequest.getPostId(),"REGISTERED")
+        var Entity=  postRepository.findFirstByIdAndStatusOrderByIdDesc(postViewRequest.getPostId(),"REGISTERED")
                 .map(it -> {
                     //entity 존제하는지
                     if (!it.getPassword().equals(postViewRequest.getPassword())) {
@@ -60,6 +64,7 @@ public class PostService {
                             return new RuntimeException("해당 게시글이 존재하지 않습니다: " + postViewRequest.getPostId());
                         }
                 );
+        return PostConverter.ToDto(Entity);
 
     }
 

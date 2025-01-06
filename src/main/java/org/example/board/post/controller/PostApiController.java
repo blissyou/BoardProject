@@ -24,7 +24,7 @@ public class PostApiController {
 
 
     @PostMapping("")
-    public PostEntity create(
+    public PostDto create(
             @Valid
             @RequestBody PostRequest postrequest
             ){

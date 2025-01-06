@@ -32,7 +32,8 @@ public class BoardService {
         return boardConverter.ToDto(Entity);
     }
 
-    public List<BoardEntity> findByAll(){
-        return boardRepository.findAll();
+    public List<BoardDto> findByAll(){
+        var Entity = boardRepository.findAll();
+        return Entity.stream().map(boardConverter::ToDto).toList();
     }
 }
