@@ -68,8 +68,10 @@ public class PostService {
 
     }
 
-    public Api<List<PostEntity>> findAll(Pageable pageable) {
+    public Api<List<PostDto>> findAll(Pageable pageable) {
         var list =postRepository.findAll(pageable);
+
+        var dtoList = list.stream().map(postConverter::ToDto).toList();
 
         var pagination = Pagination.builder()
                 .page(list.getNumber())
@@ -80,8 +82,8 @@ public class PostService {
                 .build()
                 ;
 
-        var response = Api.<List<PostEntity>>builder()
-                .body(list.toList())
+        var response = Api.<List<PostDto>>builder()
+                .body(dtoList)
                 .pagination(pagination)
                 .build();
         return response;

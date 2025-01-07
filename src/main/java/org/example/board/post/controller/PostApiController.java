@@ -41,7 +41,7 @@ public class PostApiController {
     }
 
     @GetMapping("/all")
-    public Api<List<PostEntity>> list(
+    public Api<List<PostDto>> list(
             @PageableDefault(page= 0,size = 10,sort= "id",direction = Sort.Direction.DESC)
             Pageable pageable
     ){

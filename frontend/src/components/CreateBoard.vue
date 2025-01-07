@@ -17,7 +17,6 @@
     </form>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -30,7 +29,7 @@ export default {
       fetch("/api/board", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ boardName: this.boardName }),
+        body: JSON.stringify({ board_name: this.boardName }),
       })
           .then((response) => response.json())
           .then(() => {

@@ -31,4 +31,9 @@ public class PostDto {
 
     private LocalDateTime postedAt;
 
+    public PostDto(Long id, String title, String content) {
+        id =this.id;
+        title =this.title;
+        content =this.content;
+    }
 }
