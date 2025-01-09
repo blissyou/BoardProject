@@ -2,7 +2,6 @@ package org.example.board.reply.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.board.reply.db.ReplyEntity;
 import org.example.board.reply.db.ReplyRepository;
 import org.example.board.reply.model.ReplyDto;
 import org.example.board.reply.model.ReplyRequest;

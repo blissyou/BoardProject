@@ -3,7 +3,6 @@ package org.example.board.board.db;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.board.post.db.PostEntity;
-import org.hibernate.annotations.DialectOverride;
 import org.hibernate.annotations.Where;
 
 import java.util.List;

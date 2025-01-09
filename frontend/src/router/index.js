@@ -1,21 +1,30 @@
 import {createWebHistory,createRouter} from "vue-router";
-import HelloWorld from "../components/HelloWorld.vue"
-import CreatePost from "@/components/CreatePost.vue";
+import BoardList from "@/views/board/BoardList.vue";
+import BoardDetail from "@/views/board/BoardDetail.vue";
+import BoardWrite from "@/views/board/BoardWrite.vue";
 
-
-const routes = [{
+const routes = [
+    {
         path:"/",
-        component:HelloWorld,
-        name:"home"
+        name:'BoardList',
+        component: BoardList
     },
     {
-        path:"/post",
-        component: CreatePost,
-        name:"post"
+        path:"/about",
+        name: 'About',
+        component: ()=>import('../views/board/pageAbout.vue')
+    },
+    {
+        path: "/Detail",
+        name: 'Detail',
+        component: BoardDetail
+    },
+    {
+        path: "/Write",
+        name: 'Write',
+        component: BoardWrite
     }
-
-]
-
+];
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),

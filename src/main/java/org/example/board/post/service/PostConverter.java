@@ -1,5 +1,4 @@
 package org.example.board.post.service;
-
 import org.example.board.post.db.PostEntity;
 import org.example.board.post.model.PostDto;
 import org.springframework.stereotype.Service;

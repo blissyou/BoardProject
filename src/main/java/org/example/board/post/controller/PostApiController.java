@@ -3,8 +3,6 @@ package org.example.board.post.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.board.post.common.Api;
-import org.example.board.post.common.Pagination;
-import org.example.board.post.db.PostEntity;
 import org.example.board.post.model.PostDto;
 import org.example.board.post.model.PostRequest;
 import org.example.board.post.model.PostViewRequest;

@@ -2,7 +2,6 @@ package org.example.board.board.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.board.board.db.BoardEntity;
 import org.example.board.board.model.BoardDto;
 import org.example.board.board.model.BoardRequest;
 import org.example.board.board.service.BoardService;

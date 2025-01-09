@@ -6,11 +6,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.example.board.board.db.BoardEntity;
-import org.example.board.reply.db.ReplyEntity;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Getter
 @Setter

@@ -1,26 +1,42 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-    <header class="bg-blue-500 text-white py-4 shadow-md">
-      <div class="container mx-auto text-center">
-        <h1 class="text-3xl font-bold">게시판 관리 시스템</h1>
-      </div>
-    </header>
-
-    <main class="container mx-auto py-8">
-      <CreateBoard />
-      <BoardList />
-    </main>
-  </div>
+  <PageHeader/>
+  <router-view/>
+  <PageFooter/>
 </template>
 
 <script>
-import CreateBoard from './components/CreateBoard.vue';
-import BoardList from './components/BoardList.vue';
+import PageHeader from "@/components/PageHeader.vue";
+import PageFooter from "@/components/PageFooter.vue";
 
 export default {
+  name: 'App',
   components: {
-    CreateBoard,
-    BoardList,
-  },
-};
+    PageFooter,
+    PageHeader,
+
+  }
+}
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+#nav{
+  padding: 30px;
+}
+#nav a{
+  font-weight:bold;
+  color:#2c3e50;
+}
+#nav a.router-link-exact-active{
+  color:#42b983;
+}
+
+
+</style>

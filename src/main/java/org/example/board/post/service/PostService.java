@@ -2,7 +2,6 @@ package org.example.board.post.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.board.board.db.BoardRepository;
-import org.example.board.board.service.BoardConverter;
 import org.example.board.post.common.Api;
 import org.example.board.post.common.Pagination;
 import org.example.board.post.db.PostEntity;

@@ -1,6 +1,5 @@
 package org.example.board.board.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.board.board.db.BoardEntity;
 import org.example.board.board.db.BoardRepository;
