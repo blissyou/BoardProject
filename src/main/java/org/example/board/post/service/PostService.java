@@ -41,6 +41,9 @@ public class PostService {
         var saveEntity = postRepository.save(entity);
         return postConverter.ToDto(saveEntity);
     }
+    public PostDto view(){
+        var Entity = postRepository.findById()
+    }
 
     /**
      * 1. 게시글이 있는가?

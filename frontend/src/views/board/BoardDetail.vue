@@ -43,7 +43,7 @@ export default {
   methods: {
     fnGetView() {
       //fixme: id가 쿼리파라미터로 받고 있음 -> back-end에서 바꾸던가 프론트에서 바꾸던가 해야함
-      this.$axios.get(this.$serverUrl + '/api/post/' + this.idx,).then((res) => {
+      this.$axios.get(this.$serverUrl + '/api/post/id/1').then((res) => {
         this.title = res.data.title
         this.user_name = res.data.user_name
         this.contents = res.data.content

@@ -24,11 +24,11 @@ public class BoardApiController {
     ){
         return boardService.create(boardrequest);
     }
+
     @GetMapping("/all")
     public List<BoardDto> findByAll(){
         return boardService.findByAll();
     }
-
 
 
     @GetMapping("/id/{id}")

@@ -1,21 +1,20 @@
-.board-list{
-    width:768px;
-    margin:auto;
+.board-list {
+    width: 768px;
+    margin: auto;
 }
-.board-detail{
-    width:768px;
-    margin:auto;
-    text-align: left;
 
+.board-detail {
+    width: 768px;
+    margin: auto;
+    text-align: left;
 }
-.board-contents{
-    padding:12px 8px;
+
+.board-contents {
+    padding: 12px 8px;
     border-bottom: 1px solid #eee;
 }
-.common-buttons{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    overflow: auto;
+
+.common-buttons {
+    padding: 8px;
+    text-align: right;
 }

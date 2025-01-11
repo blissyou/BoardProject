@@ -1,6 +1,8 @@
 package org.example.board.post.controller;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.board.post.common.Api;
 import org.example.board.post.model.PostDto;
@@ -29,13 +31,18 @@ public class PostApiController {
             ){
         return postService.create(postrequest);
     }
-
     @PostMapping("/id/{id}")
     public PostDto view(
             @Valid
         @RequestBody PostViewRequest postViewRequest
     ){
         return postService.view(postViewRequest);
+    }
+    @GetMapping("/id")
+    public PostDto view(
+            @PathParam("")
+    ){
+        return postService
     }
 
     @GetMapping("/all")
