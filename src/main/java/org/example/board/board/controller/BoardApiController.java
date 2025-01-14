@@ -1,5 +1,6 @@
 package org.example.board.board.controller;
 
+import io.swagger.annotations.Api;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.board.board.model.BoardDto;
@@ -31,10 +32,10 @@ public class BoardApiController {
     }
 
 
-    @GetMapping("/id/{id}")
-    public BoardDto view(
-            @PathVariable Long id
-    ){
-        return boardService.view(id);
-    }
+//    @GetMapping("/id/{id}")
+//    public BoardDto view(
+//            @PathVariable Long id
+//    ){
+//        return boardService.view(id);
+//    }
 }

@@ -41,10 +41,27 @@ public class PostService {
         var saveEntity = postRepository.save(entity);
         return postConverter.ToDto(saveEntity);
     }
-    public PostDto view(){
-        var Entity = postRepository.findById()
-    }
 
+    public Api<List<PostDto>> findAllByBoardIdAndStatusOrderByIdDesc(long id,String status,Pageable pageable) {
+
+        var postEntityList = postRepository.findAllByBoardIdAndStatusOrderByIdDesc(id,status,pageable);
+
+        var dtoList = postEntityList.stream().map(postConverter::ToDto).toList();
+
+        var pagination = Pagination.builder()
+                .page(postEntityList.getNumber())
+                .size(postEntityList.getSize())
+                .currentElement(postEntityList.getNumberOfElements())
+                .totalElement(postEntityList.getTotalElements())
+                .totalPages(postEntityList.getTotalPages())
+                .build()
+                ;
+        return Api.<List<PostDto>>builder()
+                .body(dtoList)
+                .pagination(pagination)
+                .build();
+
+    }
     /**
      * 1. 게시글이 있는가?
      * 2. 비밀번호가 맞는가
@@ -84,11 +101,11 @@ public class PostService {
                 .build()
                 ;
 
-        var response = Api.<List<PostDto>>builder()
+        return Api.<List<PostDto>>builder()
                 .body(dtoList)
                 .pagination(pagination)
                 .build();
-        return response;
+
     }
 
     public void delete( PostViewRequest postViewRequest) {

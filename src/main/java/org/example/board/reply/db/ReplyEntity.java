@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.board.post.db.PostEntity;
-
+import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter

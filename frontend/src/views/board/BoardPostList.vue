@@ -81,6 +81,7 @@
 export default {
   data() {
     return {
+      postId: null,
       requestBody: {}, // 데이터 전송
       list: [], // 리스트 데이터
       no: 0, // 게시판 숫자
@@ -110,8 +111,7 @@ export default {
       };
 
       this.$axios
-          .get('http://localhost:8080/api/post/all', {
-            params: this.requestBody,
+          .get(`http://localhost:8080/api/post/id/${this.$route.params.id}`, {
           })
           .then((res) => {
             if (res.data) {

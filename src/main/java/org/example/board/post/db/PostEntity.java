@@ -6,9 +6,10 @@ import lombok.*;
 import org.example.board.board.db.BoardEntity;
 import org.example.board.reply.db.ReplyEntity;
 import org.hibernate.annotations.Where;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Getter
 @Setter

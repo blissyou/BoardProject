@@ -1,8 +1,6 @@
 package org.example.board.post.controller;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.board.post.common.Api;
 import org.example.board.post.model.PostDto;
@@ -31,18 +29,17 @@ public class PostApiController {
             ){
         return postService.create(postrequest);
     }
-    @PostMapping("/id/{id}")
-    public PostDto view(
+
+
+    @GetMapping("/id/{id}")
+    public Api<List<PostDto>> view(
+            @PageableDefault(page= 0,size = 10,sort= "id",direction = Sort.Direction.DESC)
+            Pageable pageable,
             @Valid
-        @RequestBody PostViewRequest postViewRequest
+            @PathVariable long id
     ){
-        return postService.view(postViewRequest);
-    }
-    @GetMapping("/id")
-    public PostDto view(
-            @PathParam("")
-    ){
-        return postService
+
+        return postService.findAllByBoardIdAndStatusOrderByIdDesc(id,"REGISTERED",pageable);
     }
 
     @GetMapping("/all")

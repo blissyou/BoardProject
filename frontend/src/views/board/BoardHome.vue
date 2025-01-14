@@ -30,7 +30,8 @@ export default {
       this.ctx.fillStyle = "white";
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
-      this.ctx.fillText(this.config.text, this.canvas.width / 2, this.canvas.height / 2);
+      const textY = this.config.fontSize
+      this.ctx.fillText(this.config.text, this.canvas.width / 2, textY);
 
       const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
       const data = imageData.data;
@@ -44,6 +45,7 @@ export default {
           }
         }
       }
+
     },
     createParticle(x, y) {
       return {
