@@ -10,13 +10,16 @@ export default {
   data() {
     return {
       config: {
-        text: "Hover Effect", // 텍스트 내용
+        text: "킹 받지~", // 텍스트 내용
         fontSize: 100, // 텍스트 크기
+        textPosition: { x: 0.5, y: 0.2 }, // 텍스트 위치 비율 (가로, 세로)
         springStrength: 0.2, // 스프링 힘
         damping: 0.85, // 감쇠율
         mouseRadius: 250, // 마우스 반응 반경
         mouseForce: 1, // 마우스 힘
       },
+      customWidth: 800, // 사용자 정의 너비
+      customHeight: 600, // 사용자 정의 높이
       particles: [],
       mouse: { x: null, y: null },
       canvas: null,
@@ -30,8 +33,10 @@ export default {
       this.ctx.fillStyle = "white";
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
-      const textY = this.config.fontSize
-      this.ctx.fillText(this.config.text, this.canvas.width / 2, textY);
+
+      const textX = this.canvas.width * this.config.textPosition.x;
+      const textY = this.canvas.height * this.config.textPosition.y;
+      this.ctx.fillText(this.config.text, textX, textY);
 
       const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
       const data = imageData.data;
@@ -45,7 +50,6 @@ export default {
           }
         }
       }
-
     },
     createParticle(x, y) {
       return {
@@ -104,10 +108,27 @@ export default {
       requestAnimationFrame(this.animate);
     },
     resizeCanvas() {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
+      const aspectRatio = 16 / 9; // 원하는 비율 (16:9)
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      if (width / height > aspectRatio) {
+        this.canvas.width = height * aspectRatio;
+        this.canvas.height = height;
+      } else {
+        this.canvas.width = width;
+        this.canvas.height = width / aspectRatio;
+      }
+
       this.particles = [];
       this.createParticles();
+    },
+    debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
     },
     handleMouseMove(event) {
       const rect = this.canvas.getBoundingClientRect();
@@ -123,11 +144,13 @@ export default {
     this.canvas = this.$refs.canvas;
     this.ctx = this.canvas.getContext("2d");
 
+    const debounceResize = this.debounce(this.resizeCanvas, 100);
+    window.addEventListener("resize", debounceResize);
+
     this.resizeCanvas();
     this.createParticles();
     this.animate();
 
-    window.addEventListener("resize", this.resizeCanvas);
     this.canvas.addEventListener("mousemove", this.handleMouseMove);
     this.canvas.addEventListener("mouseout", this.handleMouseOut);
   },
@@ -140,27 +163,22 @@ export default {
 </script>
 
 <style>
-/* HTML과 Body의 기본 스타일 제거 */
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #000; /* 검은색 배경 */
-  overflow: hidden; /* 스크롤바 제거 */
+  background-color: #000;
+  overflow: hidden;
 }
 
-/* Vue 앱의 루트 컨테이너 */
 #app {
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
   position: relative;
 }
 
-/* 캔버스가 전체 화면을 덮도록 설정 */
 canvas {
   position: absolute;
   top: 0;
