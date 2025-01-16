@@ -6,6 +6,7 @@ import org.example.board.post.common.Api;
 import org.example.board.post.model.PostDto;
 import org.example.board.post.model.PostRequest;
 import org.example.board.post.model.PostViewRequest;
+import org.example.board.post.model.SearchCondition;
 import org.example.board.post.service.PostService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -36,10 +37,11 @@ public class PostApiController {
             @PageableDefault(page= 0,size = 10,sort= "id",direction = Sort.Direction.DESC)
             Pageable pageable,
             @Valid
-            @PathVariable long id
+            @PathVariable long id,
+            SearchCondition searchCondition
     ){
 
-        return postService.findAllByBoardIdAndStatusOrderByIdDesc(id,"REGISTERED",pageable);
+        return postService.findAllByBoardIdAndStatusOrderByIdDesc(id,"REGISTERED",pageable,searchCondition);
     }
 
     @GetMapping("/all")

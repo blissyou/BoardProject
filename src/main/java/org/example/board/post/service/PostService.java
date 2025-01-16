@@ -1,14 +1,19 @@
 package org.example.board.post.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.board.board.db.BoardEntity;
 import org.example.board.board.db.BoardRepository;
+import org.example.board.board.model.BoardDto;
 import org.example.board.post.common.Api;
 import org.example.board.post.common.Pagination;
+import org.example.board.post.db.BoardRepositoryCustom;
 import org.example.board.post.db.PostEntity;
 import org.example.board.post.db.PostRepository;
 import org.example.board.post.model.PostDto;
 import org.example.board.post.model.PostRequest;
 import org.example.board.post.model.PostViewRequest;
+import org.example.board.post.model.SearchCondition;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final BoardRepository boardRepository;
     private final PostConverter postConverter;
+    private final BoardRepositoryCustom boardRepositoryCustom;
 
     public PostDto create(
         PostRequest postRequest
@@ -42,10 +48,9 @@ public class PostService {
         return postConverter.ToDto(saveEntity);
     }
 
-    public Api<List<PostDto>> findAllByBoardIdAndStatusOrderByIdDesc(long id,String status,Pageable pageable) {
+    public Api<List<PostDto>> findAllByBoardIdAndStatusOrderByIdDesc(long id, String status, Pageable pageable, SearchCondition searchCondition) {
 
         var postEntityList = postRepository.findAllByBoardIdAndStatusOrderByIdDesc(id,status,pageable);
-
         var dtoList = postEntityList.stream().map(postConverter::ToDto).toList();
 
         var pagination = Pagination.builder()

@@ -1,5 +1,6 @@
 package org.example.board.post.db;
 
+import org.example.board.post.model.SearchCondition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
